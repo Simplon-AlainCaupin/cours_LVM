@@ -63,9 +63,9 @@ subgraph VGs
     VgName1
     VgName2
 end
-/dev/sda --> VgName1
-/dev/sdb --> VgName2
-/dev/sdc --> VgName2
+/dev/sda --- VgName1
+/dev/sdb --- VgName2
+/dev/sdc --- VgName2
 subgraph LVs
     LVname1
     LVname2
