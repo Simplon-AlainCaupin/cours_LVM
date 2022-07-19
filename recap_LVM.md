@@ -46,3 +46,33 @@ enfin viennent les "logical volumes", ou "LVs", formattés en Ext. Un LV peut ê
 Tous ces éléments sont gérés par le système de "FS"  
 
 Pour vérifier si il y a déjà du LVM, il faut voir le fichier /etc/fstab  
+
+Exemple schématique :  
+Où le volume sda contient un premier VG, qui lui même contient 2 LVs
+
+Les voumes sdb et sdc contiennent un second VG, qui contient un LV :
+
+```mermaid
+flowchart LR
+subgraph volumes
+    /dev/sda
+    /dev/sdb
+    /dev/sdc
+end
+subgraph VGs
+    VgName1
+    VgName2
+end
+/dev/sda --> VgName1
+/dev/sdb --> VgName2
+/dev/sdc --> VgName2
+subgraph LVs
+    LVname1
+    LVname2
+    LVname3
+end
+
+VgName1 --- LVname1
+VgName1 --- LVname2
+VgName2 --- LVname3
+```
