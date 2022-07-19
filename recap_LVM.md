@@ -48,9 +48,9 @@ Tous ces éléments sont gérés par le système de "FS"
 Pour vérifier si il y a déjà du LVM, il faut voir le fichier /etc/fstab  
 
 Exemple schématique :  
-Où le volume sda contient un premier VG, qui lui même contient 2 LVs
+Où les volumes sda, sdb et sdc ont été convertis en PVs (commande pvcreate), le premier PV contient un premier VG, qui lui même contient 2 LVs
 
-Les voumes sdb et sdc contiennent un second VG, qui contient un LV :
+Les PVs sdb et sdc contiennent un second VG, qui contient un LV :
 
 ```mermaid
 flowchart LR
@@ -59,13 +59,19 @@ subgraph volumes
     /dev/sdb
     /dev/sdc
 end
+subgraph PVs
+    PV/dev/sda["/dev/sda"]
+    PV/dev/sdb["/dev/sdb"]
+    PV/dev/sdc["/dev/sdc"]
+end
+volumes --- PVs
 subgraph VGs
     VgName1
     VgName2
 end
-/dev/sda --- VgName1
-/dev/sdb --- VgName2
-/dev/sdc --- VgName2
+PV/dev/sda --- VgName1
+PV/dev/sdb --- VgName2
+PV/dev/sdc --- VgName2
 subgraph LVs
     LVname1
     LVname2
