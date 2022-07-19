@@ -64,21 +64,24 @@ subgraph PVs
     PV/dev/sdb["/dev/sdb"]
     PV/dev/sdc["/dev/sdc"]
 end
-volumes --- PVs
+/dev/sda-- pvcreate /dev/sda---PV/dev/sda
+/dev/sdb-- pvcreate /dev/sdb---PV/dev/sdb
+/dev/sdc-- pvcreate /dev/sdc---PV/dev/sdc
+
 subgraph VGs
     VgName1
     VgName2
 end
-PV/dev/sda --- VgName1
-PV/dev/sdb --- VgName2
-PV/dev/sdc --- VgName2
+PV/dev/sda-- vgcreate VgName1 /dev/sda /dev/sdb ---VgName1
+PV/dev/sdb-- vgcreate VgName1 /dev/sda /dev/sdb ---VgName1
+PV/dev/sdc-- vgcreate VgName2 /dev/sdc ---VgName2
 subgraph LVs
     LVname1
     LVname2
     LVname3
 end
 
-VgName1 --- LVname1
-VgName1 --- LVname2
-VgName2 --- LVname3
+VgName1 --lvcreate LVname1 VgName1 --- LVname1
+VgName1 --lvcreate LVname2 VgName1--- LVname2
+VgName2 --lvcreate LVname3 VgName2--- LVname3
 ```
